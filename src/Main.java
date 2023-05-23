@@ -3,6 +3,7 @@ import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 public class Main
@@ -12,7 +13,11 @@ public class Main
 
     public static void main(String[] args) {
         ArrayList<Employee> staff = loadStaffFromFile();
-        staff.sort((Comparator.comparingInt(Employee::getSalary).thenComparing(Employee::getName)));
+//        staff.sort((Comparator.comparingInt(Employee::getSalary).thenComparing(Employee::getName)));
+//        staff.sort(Comparator.comparing(Employee::getSalary));
+//        staff.forEach(System.out::println);
+//        staff.stream().map(Employee::getWorkStart).filter(date -> date.getYear() == 117);
+        staff.stream().filter(employee -> employee.getWorkStart().getYear() == 117).max(Comparator.comparing(Employee::getSalary)).ifPresent(System.out::println);
     }
 
     private static ArrayList<Employee> loadStaffFromFile()
